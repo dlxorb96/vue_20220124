@@ -1,9 +1,9 @@
 <template>
     <div>
         <el-form :model="form" label-width="120px">
-        <ID :ID="form.ID"></ID>
-        <PW :PW="form.PW"></PW>
-        <BTN></BTN>
+        <ID @inputEvent="inputEvent" :ID="form.ID"></ID>
+        <PW @inputPassword="inputPassword" :PW="form.PW"></PW>
+        <BTN @handelClick="handelClick"></BTN>
         </el-form>
     </div>
 </template>
@@ -18,11 +18,24 @@ export default {
         ID, PW, BTN
     },
     setup () {
-        const form = reactive({
+        let form = reactive({
             ID: '',
             PW: ''
         })
-        return {form}
+        const inputEvent = (ID) =>{
+            form.ID = ID
+        }
+
+        const inputPassword = (PW) =>{
+            form.PW = PW
+        } 
+
+        const handelClick = () =>{
+            console.log(form)
+        }
+
+        
+        return {form, handelClick, inputEvent, inputPassword}
     }
 }
 </script>

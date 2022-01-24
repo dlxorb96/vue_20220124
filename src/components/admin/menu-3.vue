@@ -9,6 +9,7 @@
 </template>
 
 <script>
+// import { computed, reactive } from '@vue/runtime-core';
 export default {
     
     props:{
@@ -16,11 +17,17 @@ export default {
         aaaa : String
     },
     setup (props, {emit}) {
+            console.log("menu-3.vue",props.title);
+
 
         const handleCount = () =>{
             //부모의 @handleCount= "실제 호출 메소드"가 반응
+            
             emit('handleCount', {});
+            console.log("menu-3.vue",props.title);
         };
+        
+        
         return {props,handleCount}
     }
 }

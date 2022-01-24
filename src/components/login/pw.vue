@@ -2,6 +2,7 @@
     <div>
         <el-form-item style="width: 300px" label="Password" prop="pass">
             <el-input
+            @input="inputPassword"
                 v-model="state.PW"
                 type="password"
                 autocomplete="off"/>
@@ -16,13 +17,17 @@ export default {
         PW : String
     }
     ,
-    setup (props) {
+    setup (props, {emit}) {
         let state = reactive({
             PW : props.PW
         })
+
+        const inputPassword = () =>{
+            emit('inputPassword', state.PW);
+        }
         
 
-        return {state}
+        return {state, inputPassword}
     }
 }
 </script>

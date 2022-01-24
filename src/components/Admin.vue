@@ -48,6 +48,8 @@ export default {
 
         const handleCount = () => {
             count.value++;
+            console.log("Admin.vue=>",count.value)
+
         }
         
         return {menu,handleMenu, handleCount, count}
