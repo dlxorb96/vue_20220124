@@ -13,7 +13,7 @@
             </thead>
             <tbody>
                 <tr v-for="tmp in state.items.result" :key="tmp">
-                   <td>{{tmp.no}}</td> 
+                   <td @click="handleBoardContent(tmp.no)">{{tmp.no}}</td> 
                    <td>{{tmp.title}}</td> 
                    <td>{{tmp.writer}}</td> 
                    <td>{{tmp.hit}}</td> 
@@ -25,20 +25,15 @@
 
 <script>
 import { onMounted, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 export default {
     setup () {
         //set up 자체가 created임
+        const router = useRouter();
+
         const state = reactive({
             items: {},
-        })
-
-        console.log(1)
-
-        const aa = () =>{
-            console.log(1);
-            console.log(state);
-        }
-        aa()
+        });
         
         //생명 주기 onMounted() 원래 mounted
         onMounted(()=>{
@@ -46,13 +41,17 @@ export default {
                 {no:1, title:'가나다', writer: 'b', hit: 4 },
                 {no:2, title:'난다라요', writer: '산다라박', hit: 111 },
                 {no:3, title:'미움받을용가리', writer: '정현두', hit: 6 },
-                
             ];
-            console.log(state)
-            
         })
 
-        return {state}
+        const handleBoardContent = (no) =>{
+            console.log(no)
+            router.push({name: "Boardcontent", query: {no: no}})
+            // this.router.push
+            // 기존에는 이렇게 했음 import router해야함
+        }
+
+        return {state, handleBoardContent}
     }
 }
 </script>

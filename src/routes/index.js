@@ -5,6 +5,11 @@ import Home from '@/components/Home.vue';
 import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
 import Admin from '@/components/Admin.vue';
+import Join from '@/components/Join.vue';
+import Boardcontent from '@/components/Boardcontent.vue';
+import Chart from '@/components/Chart.vue';
+import BoardWrite from '@/components/BoardWrite.vue';
+import Mdeditor from '@/components/Mdeditor.vue';
 
 
 
@@ -14,6 +19,11 @@ const routes = [
     {path: '/board', name: "Board", component:Board},
     {path: '/login', name: "Login", component:Login},
     {path: '/admin', name: "Admin", component:Admin},
+    {path: '/join', name: "Join", component:Join},
+    {path: '/boardcontent', name: "Boardcontent", component:Boardcontent},
+    {path: '/chart', name: "Chart", component:Chart},
+    {path: '/boardWrite', name: "BoardWrite", component:BoardWrite},
+    {path: '/mdeditor', name: "Mdeditor", component:Mdeditor},
 ]
 
 //라우터 생성(주소표기방식, 라우터설정변수)

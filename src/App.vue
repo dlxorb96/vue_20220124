@@ -16,6 +16,10 @@
             <el-menu-item index="/login">Login</el-menu-item>
             <el-menu-item index="/board">Board</el-menu-item>
             <el-menu-item index="/admin">Admin</el-menu-item>
+            <el-menu-item index="/join">Join</el-menu-item>
+            <el-menu-item index="/chart">Chart</el-menu-item>
+            <el-menu-item index="/boardWrite">BoardWrite</el-menu-item>
+            <el-menu-item index="/mdeditor">Mdeditor</el-menu-item>
         </el-menu>
         <!-- 자식이 부모쪽에 메소드를 호출할 수 있게 된 경우 -->
         

@@ -1,0 +1,79 @@
+<template>
+    <div class="style1">
+        <h3>src/components/Join.vue</h3>
+        <input type="text" ref="userid" v-model="state.userid">
+        <input type="password" v-model="state.userpw">
+        <input type="password" v-model="state.userpw1">
+        <input type="text" v-model="state.username">
+        <button @click="handleJoin">회원가입</button>
+        {{state}}
+        {{userid}}
+    </div>
+</template>
+
+<script>
+import {reactive , ref} from 'vue';
+import axios from 'axios'
+
+export default {
+    setup () {
+        //High 레벨 : 변수 생성 : 오브젝트만 변화 감지
+        //깊이 있는 걸 통제 어려움
+        //내용물만 바꾸고 싶으면 reactive 오브젝트로만 가능.
+        const state = reactive({
+            userid  : "aaa",
+            userpw  : '',
+            userpw1 : '',
+            username: ''
+        })
+        //low레벨: 변수 생성: 오브젝트가 아님
+        //깊이 있는 통제 가능, 
+        //focus이동같은 게 안됨, 클릭, 개체를 세밀하게 들어갈때
+        //내용물을 바꾸는 reactive의 역할도 할 수 있고, (v-model로 접근)
+        const userid = ref(null);   // 위에서 연결하면 bbb값은 의미가 없음
+        const userpw = ref(null);
+        const userpw1 = ref(null);
+        const username = ref(null);
+        console.log(userid)
+        
+        const handleJoin = async() =>{
+            if(state.userid ===''){
+                alert('ID를 입력하세요');
+                userid.value.focus();
+                return false;
+            }
+            if(state.userpw ===''){
+                alert('비밀번호를 입력하세요');
+                return false;
+            }
+            if(state.userpw1 ===''){
+                alert('비밀번호확인');
+                return false;
+            }
+            if(state.username ===''){
+                alert('이름 입력~');
+                return false;
+            }
+            // 유효성 검증 완료되는 시점에 벡엔드 연동
+
+            const url = "http://ihongss.com/json/exam13.json";
+            const headers = {"Content-Type": "application/json"};
+            const response = await axios.get(url, {headers:headers});
+            console.log(response.data);
+            
+        }
+
+        return {state, handleJoin, userid, userpw, userpw1, username}
+    }
+}
+</script>
+
+<!-- 전처리 소스라 함 css로 변환하는 과정이 필요함
+ scss, less => css -->
+
+<style lang="scss" scoped>
+    .style1{
+        border: 1px solid red;
+        padding: 20px;
+    }
+</style>

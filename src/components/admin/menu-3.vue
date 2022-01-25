@@ -20,10 +20,10 @@ export default {
             console.log("menu-3.vue",props.title);
 
 
-        const handleCount = () =>{
+        const handleCount = async() =>{
             //부모의 @handleCount= "실제 호출 메소드"가 반응
             
-            emit('handleCount', {});
+            await emit('handleCount', {});
             console.log("menu-3.vue",props.title);
         };
         
