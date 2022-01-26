@@ -17,15 +17,18 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
 
     setup () {
+         const router = useRouter();
         //object
         const editor = {
             editor          : ClassicEditor,
-            editorData      : '<p>테스트</p>',
+            editorData      : '',
             editorConfig    : {}
         }
         //reactive
@@ -51,7 +54,7 @@ export default {
             }
         }
 
-        const handleWrite = ()=>{
+        const handleWrite = async()=>{
             if(state.title ===''){
                 alert('제목을 입력');
                 return false;
@@ -64,11 +67,21 @@ export default {
                 alert('작성자를 입력');
                 return false;
             }
-            
+            const url = '/board/insert';
+            const headers = {"Content-Type": "multipart/form-data"}
+            const body = new FormData();
+            body.append("title", state.title);
+            body.append("content", state.content);
+            body.append("writer", state.writer);
+            body.append("image", state.imgData);
+
+            const response = await axios.post(url,body, {headers})
+            console.log(response.data)
+            router.push({name: "Board"})
         }
 
 
-        return {state, editor, handleWrite, handleImg}
+        return {router,state, editor, handleWrite, handleImg}
     }
 }
 </script>
