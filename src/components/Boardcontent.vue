@@ -14,7 +14,6 @@
         <el-button type="text" 
         @click="clickEdit">
         수정</el-button>
-
         <el-dialog v-model="state.dialogFormVisible" title="수정하기">
             <el-form :model="state.form">
             <el-form-item label="제목" label-width="70px">
@@ -40,9 +39,25 @@
             </span>
             </template>
         </el-dialog>
+
+        <button @click="edit2">수정2</button>
+
         <button v-if="state.item.prev > 0" @click="handlePN(1)">이전글</button>
-        <button v-if="state.item.next > 0" @click="handlePN(2)">다음글</button>
-        댓글출력
+        <button v-if="state.item.next > 0" @click="handlePN(2)">다음글</button><br />
+        <div>댓글달기</div>
+        작성자<input  type="text" v-model="state.reply.writer"/><br />
+        <textarea  v-model="state.reply.content" rows="6">댓글 입력</textarea> 
+        <button @click="handleReplyInput">입력</button>
+
+        <div v-for="tmp in state.printReply" :key="tmp">
+            {{tmp.writer}}
+            {{tmp._id}}
+            {{tmp.content}}
+            {{tmp.regdate}}
+            <button @click="deleteReply(tmp._id)">삭제</button>
+        </div>
+        
+        
         
     </div>
 </template>
@@ -63,8 +78,15 @@ export default {
             no: route.query.no,
             dialogFormVisible : false,
             form: {},
+            reply: {},
             // item: {}
         })        
+
+        const edit2 = () =>{
+            console.log(1)
+            router.push({name: "BoardUpdate", query: {no: state.no}})
+            console.log(1)
+        }
 
         const handleData= async(no) =>{
             const url = `/board/selectOne?no=${no}`;
@@ -73,12 +95,13 @@ export default {
             console.log(response)
             if(response.data.status === 200){
                 state.item = response.data.result;
+               
             }
         }
 
         onMounted( async () =>{
             await handleData(state.no);
-            await test()
+            await handleReply(state.no)
         })
 
         const handlePN = async(idx) => {
@@ -87,12 +110,14 @@ export default {
                 query: {no:state.item.prev}});
                 state.no = state.item.prev
                 await handleData(state.no)
+                await handleReply(state.no)
             }
             else if(idx ===2){
                 router.push({name: "Boardcontent",
                 query: {no:state.item.next}})
                 state.no = state.item.next
                 await handleData(state.no)
+                await handleReply(state.no)
 
             }
         }
@@ -139,26 +164,47 @@ export default {
             }
         }
 
+        const handleReplyInput = async() =>{
+            const url = `/board/insertReply`
+            const headers = {"Content-Type": "application/json"};
+            const body = {
+                content : state.reply.content,
+                writer: state.reply.writer,
+                no : state.no
+            }
+            const response = await axios.post(url, body, {headers});
+            console.log(response)
+            if(response.data.status ===200){
+                alert('댓글 달기 성공')
+                await handleReply(state.no)
+                state.reply = {}
+            }
 
-        const test = async() =>{
-            var xhr = new XMLHttpRequest();
-            var url = 'http://apis.data.go.kr/6260000/BusanTrafficLightInfoService/getWarningLightInfo'; /*URL*/
-            var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'서비스키'; /*Service Key*/
-            queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
-            queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
-            queryParams += '&' + encodeURIComponent('resultType') + '=' + encodeURIComponent('json'); /**/
-            xhr.open('GET', url + queryParams);
-            xhr.onreadystatechange = function () {
-            if (this.readyState == 4) {
-                alert('Status: '+this.status+'nHeaders: '+JSON.stringify(this.getAllResponseHeaders())+'nBody: '+this.responseText);
+        }
+
+        const handleReply = async(no) =>{
+            const url = `board/selectReply?no=${no}`;
+            const headers = {"Content-Type": "application/json"};
+            const response = await axios.get(url, {headers});
+            console.log(response)
+            if(response.data.status === 200){
+                state.printReply = response.data.result
+            }
+        }
+
+        const deleteReply= async(no) =>{
+            if(confirm('삭제?')){    
+                const url = `/board/replyDelete`
+                const headers = {"Content-Type": "application/json"};
+                const response = await axios.delete(url, {headers: headers, data:{_id : no}})
+                if(response.data.status === 200){
+                    await handleReply(state.no)
                 }
-            };
-
-            xhr.send('');
-            
+            }
         }
         
-        return {test, handlePN, handleData, handleDelete, clickEdit, handleUpdate , route,router, state }
+        
+        return {deleteReply, edit2, handleReply, handleReplyInput, handlePN, handleData, handleDelete, clickEdit, handleUpdate , route,router, state }
     }
 }
 </script>
