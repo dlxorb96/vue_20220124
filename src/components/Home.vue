@@ -89,6 +89,7 @@ export default {
                 image : "https://picsum.photos/500/300?iamge=3"
              }
          ]
+         console.log(slides2[0].image)
 
         return { slides2}
     }
