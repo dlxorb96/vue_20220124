@@ -9,15 +9,20 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
 import ID from './login/id.vue'
 import PW from './login/pw.vue'
 import BTN from './login/btn.vue'
 import { reactive } from '@vue/reactivity'
+import axios from 'axios';
+import {useStore} from 'vuex'
 export default {
     components:{
         ID, PW, BTN
     },
     setup () {
+        const store = useStore();
+        const router = useRouter();
         let form = reactive({
             ID: '',
             PW: ''
@@ -30,12 +35,33 @@ export default {
             form.PW = PW
         } 
 
-        const handelClick = () =>{
+        const handelClick = async() =>{
             console.log(form)
+            const url = `/member/select`;
+            const body = {
+                email : form.ID,
+                pw: form.PW,
+
+            }
+            const headers = {"Content-Type": "application/json"};
+            const response = await axios.post(url,body, {headers}) 
+            console.log(response)
+            if(response.data.status===200){
+                sessionStorage.setItem("TOKEN", response.data.token)
+                //주소창만 바뀜
+                router.push({name: "Home"});
+                //App.vue에 메뉴의 선택항목을 변경하도록 알려줌
+                store.commit("setmenu", "/")
+                store.commit("setLogged", true)
+            }
+            else{
+                alert("로그인실패")
+            }
+            
         }
 
         
-        return {form, handelClick, inputEvent, inputPassword}
+        return {store, form, handelClick, inputEvent, inputPassword}
     }
 }
 </script>

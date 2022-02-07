@@ -13,7 +13,8 @@
         >
         <!-- boolean, Number값은 :router이렇게 보내지 않으면 문자가 날아감. -->
             <el-menu-item index="/">Home</el-menu-item>
-            <el-menu-item index="/login">Login</el-menu-item>
+            <el-menu-item v-if="!logged" index="/login">Login</el-menu-item>
+            <el-menu-item v-if="logged" index="/logout">Logout</el-menu-item>
             <el-menu-item index="/board">Board</el-menu-item>
             <el-menu-item index="/admin">Admin</el-menu-item>
             <el-menu-item index="/join">Join</el-menu-item>
@@ -55,6 +56,7 @@ export default {
 
         const handleSelect= (idx)=>{
             console.log(idx)
+            
             store.commit("setmenu", idx)
         }
 

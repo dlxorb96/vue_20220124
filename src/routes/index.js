@@ -4,6 +4,7 @@ import { createWebHashHistory, createRouter } from "vue-router";
 import Home from '@/components/Home.vue';
 import Board from '@/components/Board.vue';
 import Login from '@/components/Login.vue';
+import Logout from '@/components/Logout.vue';
 import Admin from '@/components/Admin.vue';
 import Join from '@/components/Join.vue';
 import Boardcontent from '@/components/Boardcontent.vue';
@@ -19,6 +20,7 @@ const routes = [
     {path: '/', name: "Home", component:Home},
     {path: '/board', name: "Board", component:Board},
     {path: '/login', name: "Login", component:Login},
+    {path: '/logout', name: "Logout", component:Logout},
     {path: '/admin', name: "Admin", component:Admin},
     {path: '/join', name: "Join", component:Join},
     {path: '/boardcontent', name: "Boardcontent", component:Boardcontent},
