@@ -22,6 +22,8 @@
             <el-menu-item index="/boardWrite">BoardWrite</el-menu-item>
             <el-menu-item index="/mdeditor">Mdeditor</el-menu-item>
             <el-menu-item index="/boardUpdate">BoardUpdate</el-menu-item>
+            <el-menu-item index="/mypage">Mypage</el-menu-item>
+            <el-menu-item index="/test">Test</el-menu-item>
         </el-menu>
         <!-- 자식이 부모쪽에 메소드를 호출할 수 있게 된 경우 -->
         
@@ -35,18 +37,33 @@
 
 <script>
 import {useStore} from 'vuex';
-import {computed, reactive} from 'vue';
+import {computed, reactive, onMounted} from 'vue';
 
 // import {reactive} from 'vue';
 export default {
     //ver 3.0
     setup () {
+
+        onMounted( async()=>{ //F5 새로고침
+            //저장소에 있는 TOKEN값을 읽어서 존재 유무
+            // TOKEN을 추가하는 시점 로그인이 완료되었을 때
+            // TOKEN의 값을 제거하는 시점 로그아웃이 되었을 때
+            if(sessionStorage.getItem("TOKEN") ===null){
+                store.commit("setLogged", false)
+            }
+            else{
+                store.commit("setLogged", true);
+            }
+            
+        })
+        // console.log(sessionStorage.getItem("TOKEN"))
         
         const store = useStore();
         
         const menu = computed(()=>{
             return store.getters.getmenu
         })
+        //store의 logged값 실시간으로 확인
         const logged = computed(()=>{
             return store.getters.getLogged
         })
@@ -54,6 +71,8 @@ export default {
             activeIndex : menu
         })
 
+        //메뉴를 클릭했을 때
+        // store값 변경하기
         const handleSelect= (idx)=>{
             console.log(idx)
             
@@ -61,14 +80,16 @@ export default {
         }
 
         //실시간 감지
-        store.subscribe((mutation, state) => {
-            console.log('store.subscribe', mutation, state);
-        })
+        //vue2에선 필요했는데 vue3에서는 computed를 사용해서
+        // 필요가 없음
+        // store.subscribe((mutation, state) => {
+        //     console.log('store.subscribe', mutation, state);
+        // })
         
         
 
 
-        return {menu, state, logged, handleSelect}
+        return {onMounted, menu, state, logged, handleSelect}
     },
     // state변수 ver2.0
    

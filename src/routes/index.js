@@ -12,6 +12,8 @@ import Chart from '@/components/Chart.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import Mdeditor from '@/components/Mdeditor.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
+import Mypage from '@/components/Mypage.vue';
+import Test from '@/components/Test.vue';
 
 
 
@@ -28,6 +30,8 @@ const routes = [
     {path: '/boardWrite', name: "BoardWrite", component:BoardWrite},
     {path: '/mdeditor', name: "Mdeditor", component:Mdeditor},
     {path: '/boardUpdate', name: "BoardUpdate", component:BoardUpdate},
+    {path: '/mypage', name: "Mypage", component:Mypage},
+    {path: '/test', name: "Test", component:Test},
 ]
 
 //라우터 생성(주소표기방식, 라우터설정변수)
