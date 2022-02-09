@@ -18,6 +18,7 @@
             <el-menu-item index="/board">Board</el-menu-item>
             <el-menu-item index="/admin">Admin</el-menu-item>
             <el-menu-item index="/join">Join</el-menu-item>
+            <el-menu-item index="/seller">Seller</el-menu-item>
             <el-menu-item index="/chart">Chart</el-menu-item>
             <el-menu-item index="/boardWrite">BoardWrite</el-menu-item>
             <el-menu-item index="/mdeditor">Mdeditor</el-menu-item>
