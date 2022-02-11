@@ -45,34 +45,75 @@
                 @click="$refs.vueperslides2.goToSlide(i)">
             </vueper-slide>
     </vueper-slides>
+
+    <!-- <div v-if="state.items">
+    <div v-for="i in 4" :key="i">
+        <div v-for="j in 4" :key="j" 
+        style="display: inline-block;
+        width: 24%
+        padding:5px; 
+        border: 1px solid black;">
+
+        {{i}}{{j}}
+            <img :src="state.items[4*(i-1)+(j-1)].imageUrl" style="width: 100%; height: 100%"/>
+            
+        </div>
     </div>
+    </div> -->
+
+
+    <div v-if="state.items" style="display: grid; 
+    grid-template-columns: repeat(4, 1fr); row-gap: 10px;
+	column-gap: 20px;">
+        <div v-for="(tmp) in state.items" :key="tmp" 
+        style="margin-bottom: 50px">
+            <img :src="tmp.imageUrl" @click="handleImageClick(tmp._id)" style="width: 100%; height: 100%; cursor:pointer;
+            border: 1px solid black; margin: 5px;" />
+            <div>{{tmp.name}}</div>
+            <div>{{tmp.price}}</div>
+        </div>
+
+    </div>
+    </div>
+
+
 </template>
 
 <script>
+import axios from 'axios'
+import {useRouter} from 'vue-router';
+import { onMounted, reactive } from '@vue/runtime-core'
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 export default {
     components: { VueperSlides, VueperSlide },
 
     setup () {
-        //  const slides =[
-        //      {
-        //         title: 'El Teide Volcano, Spain',
-        //         content: 'Photo by Max Rive',
-        //         image : "https://picsum.photos/500/300?iamge=1"
-        //      },
-        //      {
-        //         title: 'El Teide Volcano, Spain',
-        //         content: 'Photo by Max Rive',
-        //         image : "https://picsum.photos/500/300?iamge=2"
-        //      },
-        //      {
-        //         title: 'El Teide Volcano, Spain',
-        //         content: 'Photo by Max Rive',
-        //         image : "https://picsum.photos/500/300?iamge=3"
-        //      }
-        //  ]
-         const slides2 =[
+        const router = useRouter()
+        onMounted(async()=>{
+            await handleData();
+        })
+        const state = reactive({
+            page:1
+        })
+
+        const handleData= async()=>{
+            const url = `/shop/select?page=${state.page}`;
+            const headers = {"Content-Type": "application/json"};
+            const response = await axios.get(url, {headers});
+            console.log(response);
+            if(response.data.status ===200){
+                state.items = response.data.result;
+                const 
+            }
+
+        }
+
+        const handleImageClick = (code) =>{
+            router.push({name: "Productdetail", query: {code:code}}, )
+        }
+       
+        const slides2 =[
              {
                 title: 'El Teide Volcano, Spain',
                 content: 'Photo by Max Rive',
@@ -91,7 +132,12 @@ export default {
          ]
          console.log(slides2[0].image)
 
-        return { slides2}
+        return {
+            handleImageClick,
+            handleData,
+            slides2,
+            state
+            }
     }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
-    <div v-if= state.item.subImage style="border: 1px solid black; display: flex;
+    <div style="border: 1px solid black; display: flex;
     justify-content: center; align-items: center;
     flex-direction: column; padding-bottom: 50px;">
-
+<!-- 
     <div>
         <vueper-slides
             v-if = state.item.subImage
@@ -38,7 +38,7 @@
                 @click="$refs.vueperslides2.goToSlide(i)">
             </vueper-slide>
     </vueper-slides>
-    </div>
+    </div> -->
 
 
         <div style="margin: 20px">
@@ -118,14 +118,14 @@
 
 
 <script>
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+// import { VueperSlides, VueperSlide } from 'vueperslides'
+// import 'vueperslides/dist/vueperslides.css'
 import axios from 'axios'
 import { reactive } from '@vue/reactivity'
 import {useRoute, useRouter} from 'vue-router'
 import {  onMounted } from '@vue/runtime-core'
 export default {
-    components: { VueperSlides, VueperSlide },
+    // components: { VueperSlides, VueperSlide },
     setup () {
         const router = useRouter()
         const route = useRoute()

@@ -17,6 +17,7 @@ import Test from '@/components/Test.vue';
 import Seller from '@/components/Seller.vue';
 import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 import Menu1Detail from '@/components/seller/Menu1Detail.vue';
+import Productdetail from '@/components/Productdetail.vue';
 
 
 
@@ -38,6 +39,7 @@ const routes = [
     {path: '/seller', name: "Seller", component:Seller},
     {path: '/menu1Insert', name: "Menu1Insert", component:Menu1Insert},
     {path: '/menu1Detail', name: "Menu1Detail", component:Menu1Detail},
+    {path: '/productdetail', name: "Productdetail", component:Productdetail},
 ]
 
 //라우터 생성(주소표기방식, 라우터설정변수)
