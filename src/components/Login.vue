@@ -48,10 +48,21 @@ export default {
             console.log(response)
             if(response.data.status===200){
                 sessionStorage.setItem("TOKEN", response.data.token)
-                //주소창만 바뀜
-                router.push({name: "Home"});
-                //App.vue에 메뉴의 선택항목을 변경하도록 알려줌
-                store.commit("setmenu", "/")
+                
+                const curl = sessionStorage.getItem("CURL");
+                if(curl ===null){
+                    //주소창만 바뀜
+                    router.push({name: "Home"});
+                    //App.vue에 메뉴의 선택항목을 변경하도록 알려줌
+                    store.commit("setmenu", "/")
+                }
+                else{ //이동하고하는 페이지가 존재하면
+                    const query = JSON.parse(sessionStorage.getItem("CURL_QUERY"))
+                    const params = JSON.parse(sessionStorage.getItem("CURL_PARAMS"))
+                    router.push({name: curl, query: query, params: params})
+                }
+                    
+                
                 store.commit("setLogged", true)
             }
             else{

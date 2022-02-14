@@ -15,7 +15,7 @@
                 controls-position="right" @change="handleChange"/>
             <p>가격 {{state.item.s_price * state.num}}</p>
             <el-button>장바구니</el-button>
-            <el-button type="primary">바로구매</el-button>
+            <el-button @click="handleOrderAction" type="primary">바로구매</el-button>
         </div>
 
 
@@ -24,16 +24,26 @@
 
 <script>
 import axios from 'axios';
-import { useRoute } from 'vue-router'
+
+import { useRoute, useRouter } from 'vue-router'
 import { reactive } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 export default {
     setup () {
+        const router = useRouter()
         const route = useRoute()
         const state = reactive({
             num : 1,
             code : route.query.code,
         })
+
+        const handleOrderAction = ()=>{
+            console.log("handleOrderAction")
+            router.push({
+                name: "Order",
+                query : {code: state.code, cnt: state.num},
+                params: {code: state.code, cnt: state.num}})
+        }
 
         const handleChange = ()=>{
 
@@ -58,6 +68,7 @@ export default {
         return {
             
             handleChange,
+            handleOrderAction,
             state,route, axios}
     }
 }

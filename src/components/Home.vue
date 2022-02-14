@@ -104,7 +104,7 @@ export default {
             console.log(response);
             if(response.data.status ===200){
                 state.items = response.data.result;
-                const 
+                
             }
 
         }
