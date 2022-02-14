@@ -41,6 +41,8 @@
     </div> -->
 
 
+
+
         <div style="margin: 20px">
             <img :src="state.item.imageUrl" />
         </div>

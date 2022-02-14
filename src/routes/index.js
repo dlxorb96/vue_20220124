@@ -53,7 +53,7 @@ const router = createRouter({
 //라우터 이동경로 확인(이동하는 페이지, 이동전페이지, 다음페이지로 이동)
 router.beforeEach((to, from, next) => {
     // console.log(to, from)
-    console.log('이동하는 페이지 :', to.name);
+    console.log('이동하는 페이지 :', to);
     
     //저장소에 보관하기
     // sessionStorage.setItem("CURL", to.name);
@@ -81,6 +81,11 @@ router.beforeEach((to, from, next) => {
             return next({name: "Login"}); //로그인 페이지로 이동
         }
     }
+
+    if(from.name === "Order"||from.name === "BoardWrite" &&to.name === "Login"){
+
+    }
+    
 
     if(to.name !=="Login"){
         sessionStorage.removeItem("CURL")

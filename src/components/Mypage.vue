@@ -36,8 +36,6 @@ export default {
         })
 
         onMounted(()=>{
-            // handleMenu()
-            
             if(typeof route.query.menu ==='undefined'){
                 handleMenu(1)
             }
@@ -50,7 +48,8 @@ export default {
             state.menu = idx
         }
 
-        return {state, handleMenu}
+        return {state,
+        handleMenu}
     }
 }
 </script>
