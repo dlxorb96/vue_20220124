@@ -110,9 +110,9 @@
       {{state.item.content}}
     </el-descriptions-item>
   </el-descriptions>
-  <div v-if= state.item.subImage[0].imageUrl>
+  <!-- <div v-if= state.item.subImage[0].imageUrl>
       <img style="border: 1px solid black; margin-top: 10px; padding:10px; width:100px" :src="state.item.subImage[0].imageUrl"/>
-  </div>
+  </div> -->
   
 
     </div>
@@ -144,7 +144,7 @@ export default {
         
         onMounted(async()=>{
             await handleData()
-            console.log(state.item.subImage[0].imageUrl)
+            // console.log(state.item.subImage[0].imageUrl)
         })
 
         const handleData = async()=>{

@@ -85,6 +85,7 @@ export default {
 
         //화면 구현
         const handleData = async() =>{
+            
             const url = `/seller/selectlist`;
             const headers = {
                 "Content-Type": "application/json",

@@ -27,7 +27,8 @@
             <el-menu-item index="/test">Test</el-menu-item>
         </el-menu>
         <!-- 자식이 부모쪽에 메소드를 호출할 수 있게 된 경우 -->
-        
+        <div v-if="logged">{{uname}}님환영합니다</div>
+
         {{menu}}{{logged}}
         <hr />
         <router-view></router-view>
@@ -53,7 +54,11 @@ export default {
                 store.commit("setLogged", false)
             }
             else{
+                //mutation을 호출하는 경우
                 store.commit("setLogged", true);
+
+                //actions를 호출하는 경우
+                store.dispatch("handleData", {}); //뒤쪽은 payload자리
             }
             
         })
@@ -67,6 +72,12 @@ export default {
         //store의 logged값 실시간으로 확인
         const logged = computed(()=>{
             return store.getters.getLogged
+        })
+        const uid = computed(()=>{
+            return store.getters.getUid
+        })
+        const uname = computed(()=>{
+            return store.getters.getUname
         })
         const state = reactive({
             activeIndex : menu
@@ -90,7 +101,14 @@ export default {
         
 
 
-        return {onMounted, menu, state, logged, handleSelect}
+        return {
+            onMounted,
+            menu, 
+            state, 
+            logged, 
+            uid,
+            uname,
+            handleSelect}
     },
     // state변수 ver2.0
    
