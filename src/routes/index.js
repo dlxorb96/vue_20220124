@@ -19,6 +19,7 @@ import Menu1Insert from '@/components/seller/Menu1Insert.vue';
 import Menu1Detail from '@/components/seller/Menu1Detail.vue';
 import Productdetail from '@/components/Productdetail.vue';
 import Order from '@/components/Order.vue';
+import Cart from '@/components/Cart.vue';
 
 
 
@@ -42,6 +43,7 @@ const routes = [
     {path: '/menu1Detail', name: "Menu1Detail", component:Menu1Detail},
     {path: '/productdetail', name: "Productdetail", component:Productdetail},
     {path: '/order', name: "Order", component:Order},
+    {path: '/cart', name: "Cart", component:Cart},
 ]
 
 //라우터 생성(주소표기방식, 라우터설정변수)
@@ -82,9 +84,9 @@ router.beforeEach((to, from, next) => {
         }
     }
 
-    if(from.name === "Order"||from.name === "BoardWrite" &&to.name === "Login"){
+    // if(from.name === "Order"||from.name === "BoardWrite" &&to.name === "Login"){
 
-    }
+    // }
     
 
     if(to.name !=="Login"){

@@ -14,7 +14,8 @@
             <el-input-number v-model="state.num" :min="1" :max="state.item.quantity" size="small"
                 controls-position="right" @change="handleChange"/>
             <p>가격 {{state.item.s_price * state.num}}</p>
-            <el-button>장바구니</el-button>
+            <el-button @click="handleCartAction">장바구니</el-button>
+            <el-button @click="handleGoCartAction">장바구니가기</el-button>
             <el-button @click="handleOrderAction" type="primary">바로구매</el-button>
         </div>
 
@@ -37,6 +38,24 @@ export default {
             code : route.query.code,
         })
 
+        //장바구니 가기
+        const handleGoCartAction= async()=>{
+            router.push({name: "Cart"});
+        }
+        // 장바구니
+        const handleCartAction = async()=>{
+            const url = `/shop/insertcart`;
+            const headers= {"Content-type": "application/json"};
+            //물품번호, 수량, 로그인하지 않은 사용자의 정보
+            const body = {
+                code: state.code,
+                cnt: state.num
+            }
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data)
+        }
+
+        // 주문하기
         const handleOrderAction = ()=>{
             console.log("handleOrderAction")
             router.push({
@@ -66,9 +85,10 @@ export default {
             await handleData()
         })
         return {
-            
             handleChange,
+            handleGoCartAction,
             handleOrderAction,
+            handleCartAction,
             state,route, axios}
     }
 }
