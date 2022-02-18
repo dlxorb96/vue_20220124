@@ -16,7 +16,9 @@ const stores = createStore({
         logged : false,
         uid    : '',  // 로그인한 사용자의 이메일 정보
         uname  : '',  //로그인한 사용자의 이름
+        urole  : '',
         token  : '',  // 토큰을저장소에 보관하지 않고 사용
+        
     },
 
     //가져가기 (getter)
@@ -32,6 +34,9 @@ const stores = createStore({
         },
         getUname(state){
             return state.uname;
+        },
+        getUrole(state){
+            return state.urole;
         }
     },
 
@@ -48,6 +53,9 @@ const stores = createStore({
         },
         setUname(state,value){
             state.uname = value
+        },
+        setUrole(state,value){
+            state.urole = value
         },
     },
 
@@ -66,6 +74,8 @@ const stores = createStore({
                 if(response.data.status ===200){
                     context.commit("setUid", response.data.uid);
                     context.commit("setUname", response.data.uname);
+                    context.commit("setUrole", response.data.urole);
+                    context.commit("setLogged", true);
                 }
                 else{
                     //토큰의 유효성을 검사하여 통과하지 못할경우

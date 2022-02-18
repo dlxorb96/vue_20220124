@@ -51,8 +51,8 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token)
                 
                 //이메일, 이름정보 (공통변수)
-                store.commit("setUid", response.data.uid)
-                store.commit("setUname", response.data.uname)
+                //actions를 호출하여 state/store변수 변경함
+                store.dispatch("handleData", {}); //뒤쪽은 payload자리
 
 
 

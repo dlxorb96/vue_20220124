@@ -18,18 +18,18 @@
             <el-menu-item index="/board">Board</el-menu-item>
             <el-menu-item index="/admin">Admin</el-menu-item>
             <el-menu-item index="/join">Join</el-menu-item>
-            <el-menu-item index="/seller">Seller</el-menu-item>
+            <el-menu-item index="/seller" v-show="logged===true && urole === 'SELLER'">Seller</el-menu-item>
             <el-menu-item index="/chart">Chart</el-menu-item>
             <el-menu-item index="/boardWrite">BoardWrite</el-menu-item>
             <el-menu-item index="/mdeditor">Mdeditor</el-menu-item>
             <el-menu-item index="/boardUpdate">BoardUpdate</el-menu-item>
-            <el-menu-item index="/mypage">Mypage</el-menu-item>
+            <el-menu-item index="/mypage" v-show="logged===true && urole === 'CUSTOMER'">Mypage</el-menu-item>
             <el-menu-item index="/test">Test</el-menu-item>
         </el-menu>
         <!-- 자식이 부모쪽에 메소드를 호출할 수 있게 된 경우 -->
         <div v-if="logged">{{uname}}님환영합니다</div>
 
-        {{menu}}{{logged}}
+        {{menu}}{{logged}}{{urole}}
         <hr />
         <router-view></router-view>
 
@@ -79,6 +79,9 @@ export default {
         const uname = computed(()=>{
             return store.getters.getUname
         })
+        const urole = computed(()=>{
+            return store.getters.getUrole
+        })
         const state = reactive({
             activeIndex : menu
         })
@@ -108,6 +111,7 @@ export default {
             logged, 
             uid,
             uname,
+            urole,
             handleSelect}
     },
     // state변수 ver2.0

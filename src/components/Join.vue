@@ -6,6 +6,13 @@
         암호<input type="password" v-model="state.userpw"><br />
         암호확인<input type="password" v-model="state.userpw1"><br />
         이름<input type="text" v-model="state.username"><br />
+        
+        
+        권한:
+        <select v-model="state.userrole">
+            <option value="CUSTOMER">고객</option>
+            <option value="SELLER">판매자</option>
+        </select><br/>
         <button @click="handleJoin">회원가입</button>
         {{state}}
     </div>
@@ -28,6 +35,7 @@ export default {
             userpw1 : '',
             username: '',
             userMailChk : '중복확인',
+            userrole: 'CUSTOMER'
         })
         //low레벨: 변수 생성: 오브젝트가 아님
         //깊이 있는 통제 가능, 
@@ -103,7 +111,8 @@ export default {
             const body = {
                 email : state.userid,
                 pw    : state.userpw,
-                name  : state.username
+                name  : state.username,
+                role  : state.userrole,
             }
             const response = await axios.post(url, body, {headers:headers});
             console.log(response.data);

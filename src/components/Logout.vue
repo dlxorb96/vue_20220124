@@ -19,6 +19,7 @@ export default {
                 router.push({name: "Home"});
                 store.commit("setmenu", "/")
                 store.commit("setLogged", false)
+                store.commit("setUrole", '');
 
             })
             
