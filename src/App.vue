@@ -23,7 +23,7 @@
             <el-menu-item index="/boardWrite">BoardWrite</el-menu-item>
             <el-menu-item index="/mdeditor">Mdeditor</el-menu-item>
             <el-menu-item index="/boardUpdate">BoardUpdate</el-menu-item>
-            <el-menu-item index="/mypage" v-show="logged===true && urole === 'CUSTOMER'">Mypage</el-menu-item>
+            <el-menu-item index="/mypage" v-show="logged===true && urole === 'SELLER'">Mypage</el-menu-item>
             <el-menu-item index="/test">Test</el-menu-item>
         </el-menu>
         <!-- 자식이 부모쪽에 메소드를 호출할 수 있게 된 경우 -->
